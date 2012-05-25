@@ -13,5 +13,3 @@ let ``simple example`` () =
 [<Test>]
 let ``more involved example`` () = 
   calculateDL ("Åäö".ToCharArray()) ("4ad 3".ToCharArray()) =? 5
-
-open StringDistance

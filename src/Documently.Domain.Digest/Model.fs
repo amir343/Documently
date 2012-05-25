@@ -1,4 +1,4 @@
-﻿module Metadata
+﻿module Model
 
 type Actor<'a> = MailboxProcessor<'a>
 
