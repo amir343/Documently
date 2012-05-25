@@ -1,4 +1,4 @@
-﻿module StringDistanceTests
+﻿module ArrayDistanceTests
 
 open NUnit.Framework
 open ArrayDistance
@@ -13,3 +13,12 @@ let ``simple example`` () =
 [<Test>]
 let ``more involved example`` () = 
   calculateDL ("Åäö".ToCharArray()) ("4ad 3".ToCharArray()) =? 5
+
+[<TestFixture>]
+module StringDistanceTests =
+
+  open StringDistance
+
+  [<Test>]
+  let ``edit distance for capitalized characters`` () =
+    calculateEDL "åäÖ" "ö" =? 2 // not 3, which would be case sensitive

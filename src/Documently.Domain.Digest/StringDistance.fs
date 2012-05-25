@@ -1,4 +1,7 @@
 ﻿module StringDistance
 
-let ``edit distance for capitalized characters`` () =
-  ()//editDistance "åäÖ" "ö" =? 2 // not 3, which would be case sensitive
+open ArrayDistance
+
+/// Calculates the edit string distance
+let calculateEDL (s1 : string) (s2 : string) =
+  calculateDL (s1.ToLowerInvariant().ToCharArray()) (s2.ToLowerInvariant().ToCharArray())
