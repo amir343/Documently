@@ -20,8 +20,8 @@ and FeatureVector = Map<string, string>
 type Digest(state) =
 
   member x.Handle = function
-    | Create [] -> failwith "cannot handle command with no documents"
-    | Create text -> 
+    | Create [] -> invalidArg "cannot handle command with no documents" "first"
+    | Create text ->
       // let state' = add_data somedata
       x, [CreatedDigest (* state' *)]
 
@@ -35,6 +35,6 @@ type Digest(state) =
 [<Test>]
 let ``apply create command`` () =
   let d = Digest.New()
-  let d', evts = d.Handle <| Create(["Hello World"; "Goodbye world"])
+  let (d', evts) = d.Handle <| Create(["Hello World"; "Goodbye world"])
   evts =? [CreatedDigest]
 
