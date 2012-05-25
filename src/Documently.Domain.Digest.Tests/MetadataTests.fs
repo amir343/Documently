@@ -18,13 +18,17 @@ and Document = string
 and FeatureVector = Map<string, string>
 
 type Digest(state) =
+
   member x.Handle = function
-    | Create text ->
-      { 
-        Originals = text
-      ; Features = Map.empty (* TODO extract feature vector *) 
-      }
-      , [CreatedDigest]
+    | Create [] -> failwith "cannot handle command with no documents"
+    | Create text -> 
+      // let state' = add_data somedata
+      x, [CreatedDigest (* state' *)]
+
+  member x.Apply = function
+    | CreatedDigest (* state' *) -> x 
+      // TODO: 
+      // Digest(state')
 
   static member New () = Digest(State.Empty)
 
