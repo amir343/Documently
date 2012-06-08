@@ -8,7 +8,8 @@ scalaVersion := "2.9.1"
 
 resolvers ++= Seq(
     "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/",
-    "OpenNLP" at "http://opennlp.sourceforge.net/maven2"
+    "OpenNLP" at "http://opennlp.sourceforge.net/maven2",
+    "Codehale" at "http://repo.codahale.com"
     )
 
 libraryDependencies ++= Seq(
@@ -24,6 +25,7 @@ libraryDependencies ++= Seq(
   "com.weiglewilczek.slf4s" %% "slf4s" % "1.0.7",
   "commons-cli" % "commons-cli" % "1.2",
   "com.rabbitmq" % "amqp-client" % "2.8.2",
-  "junit" % "junit" % "4.10",
+  "com.codahale" %% "jerkson" % "0.5.0",
+  "junit" % "junit" % "4.10" % "test",
   "org.scalatest" %% "scalatest" % "1.8" % "test"
 )
