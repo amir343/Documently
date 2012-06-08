@@ -1,5 +1,7 @@
 package documently
 
+import com.jayway.textmining.Cluster
+
 /**
  * Copyright 2012 Amir Moulavi (amir.moulavi@gmail.com)
  *
@@ -20,4 +22,6 @@ package documently
 
 sealed trait Messages
 case class Start() extends Messages
-
+case class DocumentsToCluster(docs:List[(String, String)]) extends Messages
+case class ClusteredDocuments(cluster:List[Cluster]) extends Messages
+case class ClusteringError(errorMessage:String) extends Messages
