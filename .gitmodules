@@ -1,3 +1,6 @@
 [submodule "src/vendor/LibSvmSharp"]
 	path = src/vendor/LibSvmSharp
 	url = https://github.com/haf/LibSvmSharp.git
+[submodule "modules/supervisor"]
+	path = modules/supervisor
+	url = https://github.com/plathrop/puppet-module-supervisor
