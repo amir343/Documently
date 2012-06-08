@@ -27,6 +27,7 @@ object App {
   def main(args:Array[String]) {
     val system = ActorSystem("Documently")
     val consumer = system.actorOf(Props[ConsumerActor], "consumer")
+    val clusterer = system.actorOf(Props[ClustererActor], "clusterer")
     consumer ! Start()
   }
 

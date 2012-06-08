@@ -25,8 +25,14 @@ import config.DocumentlySettings
 
 class ConsumerActor extends Actor with ActorLogging {
 
+  log.info("Consumer Actor is started...")
+
+  val clusterer = context.actorFor("../clusterer")
+
+  require(clusterer != null, "Clusterer Actor is not started!")
+
   val namespace = "Documently.Messages.DocMetaEvents"
-  val exchangeName = namespace + ":" + "DocumentUploaded"
+  lazy val documentUploaded = namespace + ":" + "DocumentUploaded"
 
   val documentlySettings = new DocumentlySettings()
 
@@ -37,17 +43,19 @@ class ConsumerActor extends Actor with ActorLogging {
   factory.setPort(documentlySettings.port)
   factory.setVirtualHost(documentlySettings.vhost)
 
-  val connection = factory.newConnection()
-  val channel = connection.createChannel()
+  lazy val connection = factory.newConnection()
+
 
   def receive = {
     case Start() => setupRabbitMQ()
   }
 
   private def setupRabbitMQ() {
-    channel.exchangeDeclare(exchangeName, "fanout", true)
+    log.info("Connecting to RabbitMQ '%s'".format(documentlySettings.host))
+    val channel = connection.createChannel()
+    channel.exchangeDeclare(documentUploaded, "fanout", true)
     val queueName = channel.queueDeclare().getQueue
-    channel.queueBind(queueName, exchangeName, "")
+    channel.queueBind(queueName, documentUploaded, "")
 
     channel.basicConsume(queueName, true, new DefaultConsumer(channel) {
       override def handleDelivery(consumerTag:String, envelope:Envelope, properties:AMQP.BasicProperties, body:Array[Byte]) {
@@ -64,7 +72,6 @@ class ConsumerActor extends Actor with ActorLogging {
   }
 
   override def postStop() {
-    channel.close()
     connection.close()
   }
 
