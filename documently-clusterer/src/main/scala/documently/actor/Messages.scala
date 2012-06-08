@@ -1,4 +1,4 @@
-package documently
+package documently.actor
 
 import com.jayway.textmining.Cluster
 

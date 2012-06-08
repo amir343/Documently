@@ -1,8 +1,8 @@
-package documently
+package documently.actor
 
 import akka.actor.{ActorLogging, Actor}
 import com.rabbitmq.client.{AMQP, Envelope, DefaultConsumer, ConnectionFactory}
-import config.DocumentlySettings
+import documently.config.DocumentlySettings
 
 
 /**
@@ -58,7 +58,7 @@ class ConsumerActor extends Actor with ActorLogging {
     channel.queueBind(queueName, documentUploaded, "")
 
     channel.basicConsume(queueName, true, new DefaultConsumer(channel) {
-      override def handleDelivery(consumerTag:String, envelope:Envelope, properties:AMQP.BasicProperties, body:Array[Byte]) {
+      override def handleDelivery(consumerTag: String, envelope: Envelope, properties: AMQP.BasicProperties, body: Array[Byte]) {
         println("Consumer Tag: %s".format(consumerTag))
         println("Delivery Tag: %s".format(envelope.getDeliveryTag))
         println("AppId: %s".format(properties.getAppId))

@@ -1,4 +1,4 @@
-package documently
+package documently.actor
 
 import akka.actor.{ActorLogging, Actor}
 import com.jayway.textmining.{NLPFeatureSelection, Cluster, KMeanCluster}
@@ -31,19 +31,19 @@ class ClustererActor extends Actor with ActorLogging {
   def receive = {
     case DocumentsToCluster(docs) =>
       cluster(docs) match {
-        case Failure(msg)       => sender ! ClusteringError(msg)
-        case Success(clusters)  => sender ! ClusteredDocuments(clusters)
+        case Failure(msg)      => sender ! ClusteringError(msg)
+        case Success(clusters) => sender ! ClusteredDocuments(clusters)
       }
 
   }
 
-  private def cluster(docs:List[(String, String)]):Validation[String, List[Cluster]] = {
+  private def cluster(docs: List[(String, String)]): Validation[String, List[Cluster]] = {
     try {
       val k = scala.math.sqrt(docs.size.toDouble).toInt
       val kMeanCluster = new KMeanCluster(docs, k) with NLPFeatureSelection
       kMeanCluster.doCluster().success
     } catch {
-      case e:Exception => e.getMessage.fail
+      case e: Exception => e.getMessage.fail
     }
   }
 

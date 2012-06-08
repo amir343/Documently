@@ -1,11 +1,10 @@
 package documently
 
-import akka.testkit.{ImplicitSender, TestKit, TestActorRef}
+import actor.{ClustererActor, ClusteredDocuments, DocumentsToCluster, ClusteringError}
+import akka.testkit.{ImplicitSender, TestKit}
 import org.scalatest.matchers.MustMatchers
 import org.scalatest.{BeforeAndAfterAll, WordSpec}
 import akka.actor.{Props, ActorSystem}
-import akka.dispatch.Await
-import com.jayway.textmining.Cluster
 
 /**
  * Copyright 2012 Amir Moulavi (amir.moulavi@gmail.com)

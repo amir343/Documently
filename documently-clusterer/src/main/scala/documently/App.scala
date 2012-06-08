@@ -1,7 +1,6 @@
 package documently
 
-import com.rabbitmq.client.impl.AMQBasicProperties
-import com.rabbitmq.client.{AMQP, Envelope, DefaultConsumer, ConnectionFactory}
+import actor.{ClustererActor, ConsumerActor, Start}
 import akka.actor.{Props, ActorSystem}
 
 /**
