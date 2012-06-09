@@ -15,6 +15,6 @@ object DocumentlyBuild extends Build {
     .settings(basicSettings: _*)
     .settings(libraryDependencies ++= compile.allDependencies)
     .settings(libraryDependencies ++= Seq(test.junit, test.scalaTest))
-
+    .settings(com.github.retronym.SbtOneJar.oneJarSettings: _*)
 
 }
